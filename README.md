@@ -14,7 +14,7 @@ This project is a [Playwright](https://playwright.dev/) automation project for t
 1. Clone the repository:
 
 ```
-git clone <repository-url>
+git clone https://github.com/c0sminghinea/teamwork_technical_test
 
 ```
 

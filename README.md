@@ -25,7 +25,7 @@ npm install (this command has to be ran in the terminal)
 
 ```
 
-## Running the tests
+## Running the tests and reporting
 
 - To run all tests:
 
@@ -54,6 +54,13 @@ npx test --headed
 
 ```
 npx test --headless
+
+```
+
+- To generate the html report:
+
+```
+npx playwright show-report
 
 ```
 

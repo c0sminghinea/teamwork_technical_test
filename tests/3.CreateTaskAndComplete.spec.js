@@ -10,48 +10,60 @@ test('Create task in task list and complete it', async ({browser})=>
     const loginPage = new LoginPage(page);
     const homePage = new HomePage(page);
 
-    //Go to Teamwork login page and verifies that the login button is present
-    await loginPage.goTo();
-    expect('signInButton').toBeVisible;
+    await test.step('Go to Teamwork login page and verifiy that the login button is present', async () => {
+        await loginPage.goTo();
+        expect('signInButton').toBeVisible;
+    });
 
-    //Login and verifies that the user avatar element is present
-    await loginPage.validLogin(userData.email, userData.password);
-    expect('userAvatar').toBeVisible;
+    await test.step('Login and verify that the user avatar element is present', async () => {
+        await loginPage.validLogin(userData.email, userData.password);
+        expect('userAvatar').toBeVisible;
+    });
     
-    //Navigate to the My projects tab and verifies that the project in present
-    await homePage.navigateToMyProjectsTab();
-    expect('projectLink').toBeVisible;
+    await test.step('Navigate to the My projects tab and verifies that the project in present', async () => {
+        await homePage.navigateToMyProjectsTab();
+        expect('projectLink').toBeVisible;
+    });
 
-    //Click on the project and verifiy that "Add task list" button is present
-    await homePage.clickOnTheProject();
-    expect('addTaskListButton').toBeVisible;
+    await test.step('Click on the project and verify that "Add task list" button is present', async () => {
+        await homePage.clickOnTheProject();
+        expect('addTaskListButton').toBeVisible;
+    });
 
-    //Click on the Add task list button
-    await homePage.clickAddTaskListButton();
+    await test.step('Click on the Add task list button', async () => {
+        await homePage.clickAddTaskListButton();
+    });
 
-    //Fill in the task list name
-    await homePage.fillTaskListNameField();
+    await test.step('Fill in the task list name', async () => {
+        await homePage.fillTaskListNameField();
+    });
 
-    //Click on submit button
-    await homePage.clickOnSubmitButton();
+    await test.step('Click on submit button', async () => {
+        await homePage.clickOnSubmitButton();
+    });
 
-    //Click on add a task button
-    await homePage.clickAddTaskButton();
+    await test.step('Click on add a task button', async () => {
+        await homePage.clickAddTaskButton();
+    });
     
-    //Add task title
-    await homePage.addTaskTitle();
+    await test.step('Add task title', async () => {
+        await homePage.addTaskTitle();
+    });
 
-    //Click on submit button
-    await homePage.clickOnSubmitButton();
-    await page.waitForTimeout(1000);
+    await test.step('Click on submit button', async () => {
+        await homePage.clickOnSubmitButton();
+        await page.waitForTimeout(1000);
+    });
 
-    //Mark the task as done and verify the task was completed
-    await homePage.markTaskCompleted;
-    expect('completedTaskLink').toBeVisible;
+    await test.step('Mark the task as done and verify the task was completed', async () => {
+        await homePage.markTaskCompleted;
+        expect('completedTaskLink').toBeVisible;
+    });
     
-    //Making the rollback by deleting the task list
-    await homePage.rollbackTaskList();
-    const pageText = await homePage.getPageText();
-    expect (pageText).toBe('No Task Lists');
+    await test.step('Making the rollback by deleting the task list', async () => {
+        await homePage.rollbackTaskList();
+        const pageText = await homePage.getPageText();
+        expect (pageText).toBe('No Task Lists');
+    });
 
 });

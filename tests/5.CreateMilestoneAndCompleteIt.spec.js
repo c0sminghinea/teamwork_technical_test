@@ -10,40 +10,49 @@ test('Create a milestone and complete it', async ({browser})=>
     const loginPage = new LoginPage(page);
     const homePage = new HomePage(page);
 
-    //Go to Teamwork login page
-    await loginPage.goTo();
-    expect('signInButton').toBeVisible;
+    await test.step('Go to Teamwork login page and verifiy that the login button is present', async () => {
+        await loginPage.goTo();
+        expect('signInButton').toBeVisible;
+    });
 
-    //Login
-    await loginPage.validLogin(userData.email, userData.password);
-    expect('userAvatar').toBeVisible;
+    await test.step('Login and verify that the user avatar element is present', async () => {
+        await loginPage.validLogin(userData.email, userData.password);
+        expect('userAvatar').toBeVisible;
+    });
     
-    //Navigate to the My projects tab and verifies that the project in present
-    await homePage.navigateToMyProjectsTab();
-    expect('projectLink').toBeVisible;
+    await test.step('Navigate to the My projects tab and verifies that the project in present', async () => {
+        await homePage.navigateToMyProjectsTab();
+        expect('projectLink').toBeVisible;
+    });
 
-    //Click on the project and verifies that "Add task list" button is present
-    await homePage.clickOnTheProject();
-    expect('addTaskListButton').toBeVisible;
+    await test.step('Click on the project and verifies that "Add task list" button is present', async () => {
+        await homePage.clickOnTheProject();
+        expect('addTaskListButton').toBeVisible;
+    });
 
-    //Click on the Milestones tab
-    await homePage.clickOnMilestonesTab();
+    await test.step('Click on the Milestones tab', async () => {
+        await homePage.clickOnMilestonesTab();
+    });
 
-    //Click on the Milestones tab and verify that "Add Milestone" button is present
-    await homePage.clickOnAddMilestoneButton();
-    expect('addMilestoneButton').toBeVisible;
+    await test.step('Click on the Milestones tab and verify that "Add Milestone" button is present', async () => {
+        await homePage.clickOnAddMilestoneButton();
+        expect('addMilestoneButton').toBeVisible;
+    });
 
-    //Type the milestone name
-    await homePage.fillInTheMilestoneName();
+    await test.step('Type the milestone name', async () => {
+        await homePage.fillInTheMilestoneName();
+    });
 
-    //Click on the create milestone button and wait 1 sec for the milestone to be created 
-    await homePage.clickOnSubmitButton();
-    await page.waitForTimeout(1000);
+    await test.step('Click on the create milestone button and wait 1 sec for the milestone to be created', async () => { 
+        await homePage.clickOnSubmitButton();
+        await page.waitForTimeout(1000);
+    });
 
-    //Mark the milestone as completed and verify that the milestone was completed
-    await ('milestoneCompletionCheck').toBeVisible;
-    await homePage.checkMilestoneAsCompleted();
-    await homePage.rollbackDeleteMilestone();
-    expect('addFirstMilestoneButton').toBeVisible;
+    await test.step('Mark the milestone as completed and verify that the milestone was completed', async () => {
+        await ('milestoneCompletionCheck').toBeVisible;
+        await homePage.checkMilestoneAsCompleted();
+        await homePage.rollbackDeleteMilestone();
+        expect('addFirstMilestoneButton').toBeVisible;
+    });
 
 });

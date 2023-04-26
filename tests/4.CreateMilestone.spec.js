@@ -10,42 +10,52 @@ test('Create a milestone', async ({browser})=>
     const loginPage = new LoginPage(page);
     const homePage = new HomePage(page);
 
-    //Go to Teamwork login page
-    await loginPage.goTo();
-    expect('signInButton').toBeVisible;
+    await test.step('Go to Teamwork login page and verifiy that the login button is present', async () => {
+        await loginPage.goTo();
+        expect('signInButton').toBeVisible;
+    });
 
-    //Login
-    await loginPage.validLogin(userData.email, userData.password);
-    expect('userAvatar').toBeVisible;
+    await test.step('Login and verify that the user avatar element is present', async () => {
+        await loginPage.validLogin(userData.email, userData.password);
+        expect('userAvatar').toBeVisible;
+    });
     
-    //Navigate to the My projects tab and verifiy that the project in present
-    await homePage.navigateToMyProjectsTab();
-    expect('projectLink').toBeVisible;
+    await test.step('Navigate to the My projects tab and verifiy that the project in present', async () => {
+        await homePage.navigateToMyProjectsTab();
+        expect('projectLink').toBeVisible;
+    });
 
-    //Click on the project and verifiy that "Add task list" button is present
-    await homePage.clickOnTheProject();
-    expect('addTaskListButton').toBeVisible;
+    await test.step('Click on the project and verifiy that "Add task list" button is present', async () => {
+        await homePage.clickOnTheProject();
+        expect('addTaskListButton').toBeVisible;
+    });
 
-    //Click on the Milestones tab and verify that "Add Milestone" button is present
-    await homePage.clickOnMilestonesTab();
-    expect('addMilestoneButton').toBeVisible;
+    await test.step('Click on the Milestones tab and verify that "Add Milestone" button is present', async () => {
+        await homePage.clickOnMilestonesTab();
+        expect('addMilestoneButton').toBeVisible;
+    });
 
-    //Click on the add milestone button and verify that the "Add milestone" submission button is present
-    await homePage.clickOnAddMilestoneButton();
-    expect('submitButton').toBeVisible;
+    await test.step('Click on the add milestone button and verify that the "Add milestone" submission button is present', async () => {
+        await homePage.clickOnAddMilestoneButton();
+        expect('submitButton').toBeVisible;
+    });
 
-    //Type the milestone name
-    await homePage.fillInTheMilestoneName();
+    await test.step('Type the milestone name', async () => {
+        await homePage.fillInTheMilestoneName();
+    });
 
-    //Click on the create milestone button
-    await homePage.clickOnSubmitButton();
+    await test.step('Click on the create milestone button', async () => {
+        await homePage.clickOnSubmitButton();
+    });
 
-    //Verify that the milestone was created
-    expect ('milestoneCalendarThumbnail').toBeVisible;
+    await test.step('Verify that the milestone was created', async () => {
+        expect ('milestoneCalendarThumbnail').toBeVisible;
+    });
 
-    //Rollback delete milestone
-    await homePage.checkMilestoneAsCompleted();
-    await homePage.rollbackDeleteMilestone();
-    expect('addFirstMilestoneButton').toBeVisible;
+    await test.step('Rollback delete milestone', async () => {
+        await homePage.checkMilestoneAsCompleted();
+        await homePage.rollbackDeleteMilestone();
+        expect('addFirstMilestoneButton').toBeVisible;
+    });
 
 });
